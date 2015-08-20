@@ -3,8 +3,7 @@
 # # REQUIRED
 
 <ul>
-  <li>python3</li>
-  <li>python3 modules:
+  <li>python3:
   	<ul>
   		<li>requests</li>
   	</ul>
