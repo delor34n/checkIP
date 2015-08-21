@@ -4,6 +4,7 @@
 import requests, json
 import sys
 import sqlite3 as lite
+from datetime import datetime
 
 IP_URL = 'https://wtfismyip.com/json'
 PING_URL = 'http://www.google.cl'
@@ -12,7 +13,7 @@ def initDB():
 	try:
 		con = lite.connect('logs.db')
 		cur = con.cursor()
-		cur.execute("CREATE TABLE IF NOT EXISTS ip_log(id INTEGER PRIMARY KEY ASC, hostname TEXT, ip_address TEXT, location TEXT, isp TEXT, when_was_inserted DATE)")
+		cur.execute("CREATE TABLE IF NOT EXISTS ip_log(id INTEGER PRIMARY KEY ASC AUTOINCREMENT, hostname TEXT, ip_address TEXT, location TEXT, isp TEXT, when_was_inserted DATE)")
 		con.commit()
 	except lite.Error as e:
 		if con:
@@ -38,11 +39,11 @@ def dropDB():
 		if con:
 			con.close()
 
-def insertIP(hostname, ip_address, location, when_was_inserted):
+def insertIP(hostname, ip_address, location, isp, when_was_inserted):
 	try:
 		con = lite.connect('logs.db')
 		cur = con.cursor()
-		cur.execute("INSERT INTO ip_log(hostname, ip_address, location, isp, when_was_inserted) VALUES (?, ?, ?, ?)", (hostname, ip_address, location, when_was_inserted))
+		cur.execute("INSERT INTO ip_log(hostname, ip_address, location, isp, when_was_inserted) VALUES (?, ?, ?, ?, ?)", (hostname, ip_address, location, isp, when_was_inserted))
 		con.commit()
 	except lite.Error as e:
 		if con:
@@ -69,4 +70,4 @@ print(jsonResponse['YourFuckingISP'])
 dropDB()
 initDB()
 insertIP(jsonResponse['YourFuckingHostname'], jsonResponse['YourFuckingIPAddress'],
-		jsonResponse['YourFuckingLocation'], jsonResponse['YourFuckingISP'])
+		jsonResponse['YourFuckingLocation'], jsonResponse['YourFuckingISP'], datetime.now())
