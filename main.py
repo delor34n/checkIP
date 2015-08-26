@@ -5,13 +5,16 @@ import requests, json
 import sys
 import sqlite3 as lite
 from datetime import datetime
-import configparser
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 import os
+
+try: import configparser as configparser
+except ImportError:
+    import ConfigParser as configparser
 
 def initDB():
 	try:
