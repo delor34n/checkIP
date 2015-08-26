@@ -1,0 +1,12 @@
+[EMAIL]
+GMAIL_USER = <user@example.com>
+GMAIL_PASSWORD = <safestpasswordever>
+TO_EMAIL = <to@example.com>
+SUBJECT_EMAIL = <subject message>
+
+[URLS]
+IP_URL = https://wtfismyip.com/json
+PING_URL = http://www.google.cl
+
+[SERVER]
+SERVER_NAME = <server name for the email>
